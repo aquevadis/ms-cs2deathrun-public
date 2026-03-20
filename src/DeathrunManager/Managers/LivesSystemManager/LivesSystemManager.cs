@@ -43,7 +43,7 @@ internal class LivesSystemManager(
         
         hookManager.PlayerKilledPost.InstallForward(PlayerKilledPost);
         
-        clientManager.InstallCommandCallback("respawn", OnClientRespawnCommand);
+        clientManager.InstallCommandCallback("uselife", OnClientRespawnCommand);
         
         if (LivesSystemConfig.SaveLivesToDatabase is not true)
         {
@@ -72,7 +72,7 @@ internal class LivesSystemManager(
         
         hookManager.PlayerKilledPost.RemoveForward(PlayerKilledPost);
         
-        clientManager.RemoveCommandCallback("respawn", OnClientRespawnCommand);
+        clientManager.RemoveCommandCallback("uselife", OnClientRespawnCommand);
         
         logger.LogInformation("[Deathrun][LivesSystemManager] {colorMessage}", "Unload LivesSystem Manager");
     }

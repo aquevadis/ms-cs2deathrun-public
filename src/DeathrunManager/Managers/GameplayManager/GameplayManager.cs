@@ -176,20 +176,10 @@ internal class GameplayManager(
     public void OnGameInit() => GameRules = DeathrunManager.Bridge.ModSharp.GetGameRules();
     public void OnGameActivate()
     {
-        StartMapThinker();
-        modSharp.PushTimer(ExecGameVars, 5f);
-
         if (_mapStarted is not true)
         {
-            modSharp.PushTimer(() =>
-            {
-                GameChatExtensions.SendColoredAllChatMessage("You can use your extra lives by typing {GREEN}/respawn {DEFAULT}in the chat when dead!");
-            }, Random.Shared.Next(10, 15), GameTimerFlags.StopOnMapEnd);
-        
-            modSharp.PushTimer(() =>
-            {
-                GameChatExtensions.SendColoredAllChatMessage("Commands: {GREEN}/respawn{DEFAULT}, {GREEN}/kill");
-            }, Random.Shared.Next(30, 35), GameTimerFlags.StopOnMapEnd);
+            StartMapThinker();
+            modSharp.PushTimer(ExecGameVars, 5f);
         }
         
         _mapStarted = true;
