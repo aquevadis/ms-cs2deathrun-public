@@ -8,7 +8,7 @@ Deathrun Manager for CS2 servers. This is port of [this](https://forums.alliedmo
 #### Chat
 ```config
 
-!respawn, /respawn - Respawns the caller if they are dead and have enough extra lives
+!uselife, /uselife - Respawns the caller if they are dead and have enough extra lives
 
 ```
 
