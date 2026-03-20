@@ -80,7 +80,13 @@ public class DeathrunManager : IModSharpModule, IDeathrunManager
         return true;
     }
 
-    public void PostInit() { CallPostInit<IManager>(); }
+    public void PostInit() 
+    {
+        //expose shared interface
+        Bridge.SharpModuleManager.RegisterSharpModuleInterface<IDeathrunManager>(this, IDeathrunManager.Identity, this);
+                
+        CallPostInit<IManager>();
+    }
 
     public void Shutdown()
     {
@@ -93,9 +99,6 @@ public class DeathrunManager : IModSharpModule, IDeathrunManager
 
     public void OnAllModulesLoaded()
     {
-        //expose shared interface
-        Bridge.SharpModuleManager.RegisterSharpModuleInterface<IDeathrunManager>(this, IDeathrunManager.Identity, this);
-        
         CallOnAllSharpModulesLoaded<IManager>();
     }
 
