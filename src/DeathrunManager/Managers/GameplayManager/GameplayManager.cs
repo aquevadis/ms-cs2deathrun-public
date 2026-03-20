@@ -483,8 +483,6 @@ internal class GameplayManager(
 
     private void StartMapThinker()
     {
-        if (_mapStarted is true) return;
-
         //game teams unstuck logic
         modSharp.PushTimer(() =>
         {
