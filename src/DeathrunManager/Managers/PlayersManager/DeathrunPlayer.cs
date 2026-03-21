@@ -274,8 +274,9 @@ public class DeathrunPlayer : IDeathrunPlayer
         if (Client.IsValid is not true 
             || Client.SteamId == 0 
             || Client.IsFakeClient is true 
-            || Client.IsHltv is true
-            ) return;
+            || Client.IsHltv is true) return;
+        
+        if (IsValid is not true) return;
         
         var e = DeathrunManager.Bridge.EventManager.CreateEvent("show_survival_respawn_status", true);
         if (e is null) return;
