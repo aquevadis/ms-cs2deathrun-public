@@ -505,11 +505,11 @@ internal class GameplayManager(
             switch (aliveDeathrunPlayers.Count)
             {
                 //restart the round if there is a valid(dead) player and no other live player/s
-                case 0 when validDeathrunPlayers.Count is 1 
+                case 0 or 1 when validDeathrunPlayers.Count is 1 
                             && validDeathrunPlayers.First().PlayerPawn?.IsAlive is true:
                 
                 //restart the round if there is one player alive and two or more valid(dead) players
-                case 1 when validDeathrunPlayers.Count >= 2 && _gameMasterDeathrunPlayer is null:
+                case >= 2 when validDeathrunPlayers.Count >= 2 && _gameMasterDeathrunPlayer is null:
                                       GameRules.TerminateRound(2, RoundEndReason.RoundDraw);
                     break;
             }
