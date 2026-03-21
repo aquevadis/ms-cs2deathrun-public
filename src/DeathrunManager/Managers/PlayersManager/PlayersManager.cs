@@ -71,9 +71,9 @@ internal class PlayersManager(
         foreach (var iDeathrunPlayer in _deathrunPlayersBuffer)
         {
             //skip bots here
-            //if (iDeathrunPlayer.Client.SteamId == 0) continue;
+            if (iDeathrunPlayer.Client.SteamId == 0) continue;
             
-            if (iDeathrunPlayer is not DeathrunPlayer {} deathrunPlayer) return;
+            if (iDeathrunPlayer is not DeathrunPlayer {} deathrunPlayer) continue;
             
             //call the player think method
             deathrunPlayer.PlayerThink();
