@@ -9,7 +9,7 @@
         <RootNamespace>DeathrunManager</RootNamespace>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <PlatformTarget>x64</PlatformTarget>
-        <Version>0.1.18</Version>
+        <Version>0.1.19</Version>
     </PropertyGroup>
     
     <PropertyGroup>

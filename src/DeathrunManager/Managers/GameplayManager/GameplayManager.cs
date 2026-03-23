@@ -45,6 +45,11 @@ internal class GameplayManager(
     private DeathrunPlayer? _gameMasterDeathrunPlayer = null;
     private void SetGameMaster(DeathrunPlayer? gameMaster) { _gameMasterDeathrunPlayer = gameMaster; }
     public IDeathrunPlayer? GetGameMaster() => _gameMasterDeathrunPlayer;
+
+    public event IGameplayManager.GameMasterPickedDelegate? GameMasterPicked;
+    public event IGameplayManager.PlayerSpawnPostDelegate? PlayerSpawned;
+    public event IGameplayManager.RoundStartDelegate? RoundStarted;
+    public event IGameplayManager.RoundEndDelegate? RoundEnded;
     
     // ReSharper disable once MemberCanBePrivate.Global
     public static IGameRules GameRules = null!;
@@ -164,7 +169,9 @@ internal class GameplayManager(
                 if (deathrunPlayer.Class is DPlayerClass.Contestant && deathrunManagerConfig.GiveWeaponToCTs is true)
                     deathrunPlayer.PlayerPawn?.GiveNamedItem(EconItemId.UspSilencer);
             }
-            
+
+            PlayerSpawned?.Invoke(deathrunPlayer);
+
         }, 0.015625f * 2);
     }
 
@@ -230,12 +237,14 @@ internal class GameplayManager(
     private HookReturnValue<bool> OnRoundStart(EventHookParams evParms)
     {
         StartDeathrunRound();
+        RoundStarted?.Invoke();
         return new ();
     }
 
     private HookReturnValue<bool> OnRoundEnd(EventHookParams evParms)
     {
         EndDeathrunRound();
+        RoundEnded?.Invoke();
         return new ();
     }
 
@@ -327,6 +336,7 @@ internal class GameplayManager(
         gameMasterDeathrunPlayer.ChangeClass(DPlayerClass.GameMaster);
         gameMasterDeathrunPlayer.SkipNextGameMasterPickUp = true;
         SetGameMaster(gameMasterDeathrunPlayer as DeathrunPlayer);
+        GameMasterPicked?.Invoke(gameMasterDeathrunPlayer);
         return true;
     }
 
